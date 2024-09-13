@@ -27,4 +27,24 @@ function getURLsFromHTML(htmlBody,baseURL){
     }
     return allurls;
 }
-export {getURLsFromHTML,normalizeURL};
+
+async function crawlPage(url){
+    try{
+        const response = await fetch(url);
+        if (response.status >= 400) {
+            console.error(`HTTP error! status: ${response.status}`);
+            return;
+        }
+        const contentType = response.headers.get('content-type');
+        if (!contentType || !contentType.includes('text/html')) {
+            console.error(`Invalid content-type! Expected text/html but received ${contentType}`);
+            return;
+        }
+        const data = await response.text();
+        console.log('HTML fetched successfully:\n', data);
+    }
+    catch{
+        console.error('Error fetching data:', error);
+    }
+}
+export {getURLsFromHTML,normalizeURL,crawlPage};
