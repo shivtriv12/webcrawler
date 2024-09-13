@@ -11,7 +11,7 @@ async function main(){
     }
     else{
         console.log('Crawler Started!!!');
-        await crawlPage(args);
+        console.log(await crawlPage(args));
         process.exit(0);
     }
 }
