@@ -1,4 +1,5 @@
 import { crawlPage } from "./crawl.js";
+import { printReport } from "./report.js";
 async function main(){
     const args = process.argv.slice(2);
     if(args.length>1){
@@ -11,7 +12,8 @@ async function main(){
     }
     else{
         console.log('Crawler Started!!!');
-        console.log(await crawlPage(args));
+        const pages = await crawlPage(args);
+        printReport(pages);
         process.exit(0);
     }
 }
