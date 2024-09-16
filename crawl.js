@@ -48,26 +48,28 @@ async function fetchHTML(url) {
 
   return res.text()
 }  
-async function crawlPage(baseURL, currentURL = baseURL, pages = {}) {
+
+async function crawlPage(baseURL, currentURL = baseURL, pages = {internal: {}, external: {}, invalid: {}}) {
     const currentURLObj = new URL(currentURL)
     const baseURLObj = new URL(baseURL)
     if (currentURLObj.hostname !== baseURLObj.hostname) {
-      return pages
+      pages.external[normalizeURL(currentURL)] = (pages.external[normalizeURL(currentURL)] || 0) + 1;
+      return pages;
     }
-
-    const normalizedURL = normalizeURL(currentURL)
-    if (pages[normalizedURL] > 0) {
-      pages[normalizedURL]++
-      return pages
+    const normalizedURL = normalizeURL(currentURL);
+    if (pages.internal[normalizedURL]) {
+      pages.internal[normalizedURL] = (pages.internal[normalizedURL] || 0) + 1;
+      return pages;
     }
-    pages[normalizedURL] = 1
-    console.log(`crawling ${currentURL}`)
+    pages.internal[normalizedURL] = 1;
+    console.log(`crawling ${currentURL}`);
     let html = ''
     try {
       html = await fetchHTML(currentURL)
     } catch (err) {
       console.log(`${err.message}`)
-      return pages
+      pages.invalid[normalizeURL(currentURL)] = (pages.invalid[normalizeURL(currentURL)] || 0) + 1;
+      return pages;
     }
     const nextURLs = getURLsFromHTML(html, baseURL)
     for (const nextURL of nextURLs) {
