@@ -17,8 +17,8 @@ async function main(){
     //     process.exit(1);
     // }
     // const [url, email] = args;
-    url = 'https://bsach64.github.io';
-    email = 'purposerandom630@gmail.com';
+    const url = 'https://bsach64.github.io';
+    const email = 'purposerandom630@gmail.com';
     console.log('Crawler Started!!!');
     try{ 
         let pages = await crawlPage(url);
