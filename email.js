@@ -1,7 +1,7 @@
 import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
 dotenv.config();
-async function sendEmailWithAttachment(toEmail, csvFilePath) {
+async function sendEmailWithAttachment(toEmail, csvFilePath,graphFilePath) {
     const transporter = nodemailer.createTransport({
         service: 'Gmail',
         auth: {
@@ -18,6 +18,10 @@ async function sendEmailWithAttachment(toEmail, csvFilePath) {
             {
                 filename: 'report.csv',
                 path: csvFilePath
+            },
+            {
+                filename: 'webgraph.png',
+                path: graphFilePath
             }
         ]
     };

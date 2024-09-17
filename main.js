@@ -2,6 +2,7 @@ import { crawlPage } from "./crawl.js";
 import { sortPagesByCount } from "./sort.js";
 import { generateCSVFromPages} from "./csv.js";
 import { sendEmailWithAttachment } from "./email.js";
+import { generateGraph } from "./visualisation.js";
 import path from 'path';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
@@ -18,10 +19,12 @@ async function main(){
     console.log('Crawler Started!!!');
     try{ 
         let pages = await crawlPage(url);
+        const graphFilePath = path.join(__dirname, 'webgraph.png');
+        generateGraph(pages, graphFilePath);
         pages = sortPagesByCount(pages);
         await generateCSVFromPages(pages);
         const csvFilePath = path.join(__dirname, 'output.csv');
-        await sendEmailWithAttachment(email,csvFilePath);
+        await sendEmailWithAttachment(email,csvFilePath,graphFilePath);
         process.exit(0);
     }catch(error){
         console.error('Error during crawling process:', error);

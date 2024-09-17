@@ -49,7 +49,7 @@ async function fetchHTML(url) {
   return res.text()
 }  
 
-async function crawlPage(baseURL, currentURL = baseURL, pages = {internal: {}, external: {}, invalid: {}}) {
+async function crawlPage(baseURL, currentURL = baseURL, pages = {internal: {}, external: {}, invalid: {},nextLinks: {}}) {
     const currentURLObj = new URL(currentURL)
     const baseURLObj = new URL(baseURL)
     if (currentURLObj.hostname !== baseURLObj.hostname) {
@@ -62,6 +62,7 @@ async function crawlPage(baseURL, currentURL = baseURL, pages = {internal: {}, e
       return pages;
     }
     pages.internal[normalizedURL] = 1;
+    pages.nextLinks[normalizedURL] = [];
     console.log(`crawling ${currentURL}`);
     let html = ''
     try {
@@ -71,7 +72,8 @@ async function crawlPage(baseURL, currentURL = baseURL, pages = {internal: {}, e
       pages.invalid[normalizeURL(currentURL)] = (pages.invalid[normalizeURL(currentURL)] || 0) + 1;
       return pages;
     }
-    const nextURLs = getURLsFromHTML(html, baseURL)
+    const nextURLs = getURLsFromHTML(html, baseURL);
+    pages.nextLinks[normalizedURL] = nextURLs;
     for (const nextURL of nextURLs) {
       pages = await crawlPage(baseURL, nextURL, pages)
     }
