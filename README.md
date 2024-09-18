@@ -30,10 +30,11 @@ usage:
 npm run start <url> <email>
 ```
 
-.
-├── crawl.js         # Crawls the website and extracts links.
-├── sort.js          # Sorts the pages based on link counts.
-├── csv.js           # Generates CSV from the crawled data.
-├── email.js         # Sends the CSV and graph via email.
-├── visualisation.js # Generates graph visualizations.
-└── output.csv       # The generated CSV report (output after running).
+## Funtions of each Files
+
+- crawl.js         # Crawls the website and extracts links.
+- sort.js          # Sorts the pages based on link counts.
+- csv.js           # Generates CSV from the crawled data.
+- email.js         # Sends the CSV and graph via email.
+- visualisation.js # Generates graph visualizations.
+-  output.csv       # The generated CSV report (output after running).
