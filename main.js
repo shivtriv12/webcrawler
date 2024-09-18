@@ -11,14 +11,12 @@ import { fileURLToPath } from 'url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 async function main(){
-    // const args = process.argv.slice(2);
-    // if(args.length!==2){
-    //     console.log('Error');
-    //     process.exit(1);
-    // }
-    // const [url, email] = args;
-    const url = 'https://bsach64.github.io';
-    const email = 'purposerandom630@gmail.com';
+    const args = process.argv.slice(2);
+    if(args.length!==2){
+        console.log('Error');
+        process.exit(1);
+    }
+    const [url, email] = args;
     console.log('Crawler Started!!!');
     try{ 
         let pages = await crawlPage(url);
@@ -33,7 +31,7 @@ async function main(){
         console.error('Error during crawling process:', error);
     }
 }
-
-cron.schedule('0 0 * * *', () => {
-    main();
-});
+main();
+// cron.schedule('0 0 * * *', () => {
+//     main();
+// });
