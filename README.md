@@ -14,7 +14,8 @@ A **web crawler** is an automated script or program that systematically browses 
 
 clone the repo:
 ```bash
-https://github.com/shivtriv12/webcrawler.git
+git clone https://github.com/shivtriv12/webcrawler.git
+cd webcrawler
 ```
 install dependencies:
 ```bash
@@ -32,9 +33,9 @@ npm run start <url> <email>
 
 ## Funtions of each Files
 
-- crawl.js         # Crawls the website and extracts links.
-- sort.js          # Sorts the pages based on link counts.
-- csv.js           # Generates CSV from the crawled data.
-- email.js         # Sends the CSV and graph via email.
-- visualisation.js # Generates graph visualizations.
--  output.csv       # The generated CSV report (output after running).
+- crawl.js         - Crawls the website and extracts links.
+- sort.js          - Sorts the pages based on link counts.
+- csv.js           - Generates CSV from the crawled data.
+- email.js         - Sends the CSV and graph via email.
+- visualisation.js - Generates graph visualizations.
+-  output.csv       - The generated CSV report (output after running).
